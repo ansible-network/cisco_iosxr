@@ -18,6 +18,7 @@ playbooks to perform automation activities on Cisco iosxr devices.
 Please see the documentation link for each function for details on how to use
 the function in an Ansible playbook.
 
+* get_facts [[source]](https://github.com/ansible-network/cisco_iosxr/blob/devel/tasks/get_facts.yaml) [[docs]](https://github.com/ansible-network/cisco_iosxr/blob/devel/docs/get_facts.md)
 
 ## License
 

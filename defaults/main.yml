@@ -1,2 +1,5 @@
 ---
 # defaults file for ansible-network.cisco_iosxr
+#
+iosxr_get_facts_command_map: "{{ role_path }}/vars/get_facts_command_map.yaml"
+iosxr_get_facts_subset: "{{ subset | default(['default']) }}"

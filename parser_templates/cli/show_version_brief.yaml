@@ -1,0 +1,31 @@
+---
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    command: show version brief
+    network_os: iosxr
+
+- name: parse softare version
+  pattern_match:
+    regex: ", Version (.+)"
+  register: version
+
+- name: parse hostname
+  pattern_match:
+    regex: "(\\S+) uptime is"
+  register: hostname
+
+- name: match image
+  pattern_match:
+    regex: "^System image file is \"(\\S+)\""
+  register: image
+
+- name: build iosxr version facts
+  set_vars:
+    version: "{{ version.matches.0 }}"
+    hostname: "{{ hostname.matches.0 }}"
+    image_file: "{{ image.matches.0 }}"
+  register: system
+  export: yes
+  extend: cisco_iosxr
+
