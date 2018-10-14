@@ -1,0 +1,49 @@
+---
+# configure
+#
+- name: load configuration
+  block:
+  - name: enter configuration mode
+    cli:
+      command: configure
+  
+  - name: load configuration lines
+    cli:
+      command: "{{ line.strip() }}"
+    loop: "{{ iosxr_config_text | to_lines }}"
+    loop_control:
+      loop_var: line
+
+  - name: check the config diff before committing
+    cli:
+      command: show commit changes diff
+    register: iosxr_config_diff
+    
+  - name: display config diff
+    debug:
+      msg: "{{ iosxr_config_diff.stdout.splitlines() }}"
+
+  - name: commit the configuration only if there is difference
+    cli:
+      command: commit
+    when: iosxr_config_diff.stdout.splitlines()|length > 3
+    changed_when: true
+
+  - name: abort the configuration due to check mode
+    cli:
+      command: abort
+    when: ansible_check_mode
+
+  - name: end the configuration session
+    cli:
+      command: end
+    when: not ansible_check_mode
+
+  rescue:
+    - name: abort configuration
+      cli:
+        command: abort
+
+    - name: mark the host as failed
+      fail:
+        msg: "error loading configuration onto target device"

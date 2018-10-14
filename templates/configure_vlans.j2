@@ -1,0 +1,14 @@
+{% for vlan in vlans %}
+
+{% if vlan.state is defined and vlan.state == 'absent' %}
+interface {{ vlan.interface }}
+no dot1q native vlan {{ vlan.id }}
+
+{% else %}
+
+interface {{ vlan.interface }}
+dot1q native vlan {{ vlan.id }}
+ipv4 address {{ vlan.ipaddr | default(omit) }}
+
+{% endif %}
+{% endfor %}

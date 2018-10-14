@@ -1,0 +1,34 @@
+---
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    command: show vlan trunks
+    network_os: iosxr
+
+- name: match cli sections
+  pattern_match:
+    regex: "^Gi(\\w+)"
+    match_all: yes
+    match_greedy: yes
+  register: cli_section
+
+- name: match cli values
+  pattern_group:
+  - name: match row
+    pattern_match:
+      regex: '^(?P<interface>\w+\d/\d/\d/\d)\s+(?P<id>\d+)'
+      content: "{{ item }}"
+    register: fact
+  loop: "{{ cli_section }}"
+  register: cli_values
+
+- name: template facts
+  json_template:
+    template:
+      - key: interface
+        value: "{{ item.fact.interface}}"
+      - key: id
+        value: "{{ item.fact.id }}"
+  loop: "{{ cli_values }}"
+  export: yes
+  register: vlan_facts

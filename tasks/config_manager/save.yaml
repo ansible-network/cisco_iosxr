@@ -1,0 +1,34 @@
+---
+# save config tasks
+- name: initialize function
+  include_tasks: includes/init.yaml
+
+- name: copy running-config to file
+  cli:
+    command: "show running-config | file disk0:{{ iosxr_config_save_config }}"
+
+- block:
+  - name: create a new configuration session
+    cli:
+      command: configure
+
+  - name: load the running-config from already saved file
+    cli:
+      command: "load disk0:{{ iosxr_config_save_config }}"
+
+  - name: commit the changes
+    cli:
+      command: commit
+
+  - name: terminate the configuration session
+    cli:
+      command: end
+
+  - name: delete the saved file
+    cli:
+      command: "delete /noprompt disk0:{{ iosxr_config_save_config }}"
+
+  rescue:
+  - name: terminate the configuration session
+    cli:
+      command: end

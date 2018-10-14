@@ -6,3 +6,8 @@ iosxr_get_facts_subset: "{{ subset | default(['default']) }}"
 
 iosxr_netconf_port: "{{ netconf_port | default(830) }}"
 iosxr_netconf_vrf: "{{ netconf_vrf | default('default') }}"
+
+iosxr_rollback_enabled: "{{ rollback_enabled | default(True) }}"
+iosxr_config_file: "{{ config_file | default(None) }}"
+iosxr_config_text: "{{ config_text | default(None) }}"
+iosxr_config_replace: "{{ replace | default(False) }}"
