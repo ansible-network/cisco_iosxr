@@ -15,11 +15,5 @@ username {{ user.name }} secret {{ user.password }}
 username {{ user.name }} group {{ user.group }}
 {% endif %}
 
-{% if user.groups is defined %}
-{% for entry in user.groups %}
-username {{ user.name }} group {{ entry }}
-{% endfor %}
-{% endif %}
-
 {% endif %}
 {% endfor %}
