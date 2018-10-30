@@ -7,7 +7,18 @@ Ansible Network cisco_iosxr
 v2.7.0
 ======
 
-.. _Ansible Network cisco_iosxr_v2.7.0_New Tasks:
+.. _Ansible Network cisco_iosxr_v2.7.0_Major Changes:
+
+Major Changes
+-------------
+
+- Initial release of 2.7.0 ``cisco_iosxr`` Ansible role that is supported with Ansible 2.7.0
+
+.. _Ansible Network cisco_nxos_v2.6.1:
+
+v2.6.1
+======
+.. _Ansible Network cisco_iosxr_v2.6.1_New Tasks:
 
 New Tasks
 ---------
