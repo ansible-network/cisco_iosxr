@@ -2,12 +2,12 @@
 Ansible Network cisco_iosxr
 ===========================
 
-.. _Ansible Network cisco_iosxr_v2.6.1:
+.. _Ansible Network cisco_iosxr_v2.7.0:
 
-v2.6.1
-========
+v2.7.0
+======
 
-.. _Ansible Network cisco_iosxr_v2.6.1_New Tasks:
+.. _Ansible Network cisco_iosxr_v2.7.0_New Tasks:
 
 New Tasks
 ---------
