@@ -2,6 +2,19 @@
 Ansible Network cisco_iosxr
 ===========================
 
+.. _Ansible Network cisco_iosxr_v2.6.1:
+
+v2.6.1
+========
+
+.. _Ansible Network cisco_iosxr_v2.6.1_New Tasks:
+
+New Tasks
+---------
+
+- Add ``configure_user`` task.
+
+
 .. _Ansible Network cisco_iosxr_v2.6.0:
 
 v2.6.0
@@ -29,3 +42,4 @@ New Functions
 - NEW ``config_manager/load`` function provides a means to load a configuration file onto a target device running Cisco IOSXR.
 
 - NEW ``config_manager/save`` function saves the current active (running) configuration to the startup configuration.
+
