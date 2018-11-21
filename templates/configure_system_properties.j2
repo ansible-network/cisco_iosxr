@@ -1,0 +1,50 @@
+{% for sys_prop in sys_props %}
+
+{% if sys_prop.state is defined and sys_prop.state == 'absent' %}
+
+{% if sys_prop.hostname is defined %}
+no hostname {{ sys_prop.hostname }}
+{% endif %}
+
+{% if sys_prop.domain_name is defined %}
+no domain name {{ sys_prop.domain_name }}
+{% endif %}
+
+{% if sys_prop.domain_name_server is defined %}
+no domain name-server {{ sys_prop.domain_name_server }}
+{% endif %}
+
+{% if sys_prop.vrf_name is defined %}
+no vrf {{ sys_prop.vrf_name }}
+{% endif %}
+
+
+{% else %}
+
+
+{% if sys_prop.hostname is defined %}
+hostname {{ sys_prop.hostname }}
+{% endif %}
+
+{% if sys_prop.domain_name is defined %}
+domain name {{ sys_prop.domain_name }}
+{% endif %}
+
+{% if sys_prop.domain_name_server is defined %}
+domain name-server {{ sys_prop.domain_name_server | default(omit) }}
+{% endif %}
+
+{% if sys_prop.vrf_name is defined %}
+vrf {{ sys_prop.vrf_name }}
+address-family {{ sys_prop.vrf_address_family | default(omit) }}
+apply-group {{ sys_prop.vrf_apply_group | default(omit) }}
+description {{ sys_prop.description | default(omit) }}
+fallback-vrf {{ sys_prop.vrf_fallback | default(omit) }}
+mode {{ sys_prop.vrf_mode | default(omit) }}
+vpn {{ sys_prop.vrf_vpn | default(omit) }}
+remote-route-filtering {{ sys_prop.vrf_remote_route_filter | default(omit) }}
+{% endif %}
+
+
+{% endif %}
+{% endfor %}
