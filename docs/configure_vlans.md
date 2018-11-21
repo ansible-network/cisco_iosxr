@@ -22,7 +22,7 @@ Cisco IOS-XR device.
     function: configure_vlans
   vars:
     vlans:
-      - interface: eth1
+      - interface: Gi0/0/0/3
         id: 10
         description: this is vlan 10
         ipaddr: 192.168.1.0/24
@@ -49,7 +49,7 @@ Below is an example of how to use the `configure_vlans` function with `tasks`.
         tasks_from: configure_vlans
       vars:
         vlans:
-          - interface: eth1
+          - interface: Gi0/0/0/3
             id: 10
             description: this is vlan 10
             ipaddr: 192.168.1.0/24
