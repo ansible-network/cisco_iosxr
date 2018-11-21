@@ -102,7 +102,8 @@ value the role will continue to run without any failure.
 
 ### vrf_name
 
-VRF name that need to be configured for the Cisco IOS-XR device.
+VRF name that need to be configured for the Cisco IOS-XR device. Also, this is mandatory
+parameter for VRF configuration.
 
 The default value is `omit` which means even if the user doesn't pass the respective
 value the role will continue to run without any failure.
