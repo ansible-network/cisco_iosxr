@@ -1,0 +1,8 @@
+---
+- name: "fetch template for configuring system property(s)"
+  set_fact:
+    iosxr_config_text: "{{ lookup('config_template', 'configure_system_properties.j2') }}"
+  when: sys_props
+
+- include_tasks: config_manager/load.yaml
+  when: sys_props
