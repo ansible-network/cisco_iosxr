@@ -20,7 +20,7 @@ the function in an Ansible playbook.
 
 * get_facts [[source]](https://github.com/ansible-network/cisco_iosxr/blob/devel/tasks/get_facts.yaml) [[docs]](https://github.com/ansible-network/cisco_iosxr/blob/devel/docs/get_facts.md)
 * configure_vlans [[source]](https://github.com/ansible-network/cisco_iosxr/blob/devel/tasks/configure_vlans.yaml) [[docs]](https://github.com/ansible-network/cisco_iosxr/blob/devel/docs/configure_vlans.md)
-* configure_system_properties [[source]](https://github.com/ansible-network/cisco_iosxr/blob/devel/tasks/configure_system_properties) [[docs]](https://github.com/ansible-network/cisco_iosxr/blob/devel/docs/configure_system_properties.md)
+* configure_system_properties [[source]](https://github.com/ansible-network/cisco_iosxr/blob/devel/tasks/configure_system_properties.yaml) [[docs]](https://github.com/ansible-network/cisco_iosxr/blob/devel/docs/configure_system_properties.md)
 
 ## License
 
