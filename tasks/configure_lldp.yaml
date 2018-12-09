@@ -1,0 +1,8 @@
+---
+- name: "fetch template for configuring LLDP"
+  set_fact:
+    iosxr_config_text: "{{ lookup('config_template', 'configure_lldp.j2') }}"
+  when: lldp
+
+- include_tasks: config_manager/load.yaml
+  when: lldp
