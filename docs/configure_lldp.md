@@ -113,22 +113,15 @@ When you enable LLDP globally on the router, all supported interfaces are automa
 enabled for LLDP receive and transmit operations. It can be overriden by disabling these 
 operations for a particular interface.
 
-The default value is `omit` which means even if the user doesn't pass the respective
-value the role will continue to run without any failure.
-
 ### receive
 
-LLDP receive disables LLDP receive operations on the interface.
-
-The default value is `omit` which means even if the user doesn't pass the respective
-value the role will continue to run without any failure.
+LLDP receive disables LLDP receive operations on the interface. It can only be set if value
+of interface is set as `recieve` operations will be disabled on the respective interface.
 
 ### transmit
 
-LLDP receive disables LLDP transmit operations on the interface.
-
-The default value is `omit` which means even if the user doesn't pass the respective
-value the role will continue to run without any failure.
+LLDP receive disables LLDP transmit operations on the interface. It can only be set if value
+of interface is set as `transmit` operations will be disabled on the respective interface.
 
 ### state
 
