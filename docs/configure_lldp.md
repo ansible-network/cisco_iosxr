@@ -11,7 +11,7 @@ using either the `roles` directive or the `tasks` directive.  If no other
 options are provided, then all of the available facts will be collected for 
 the device.
 
-Below is an example of how to use the `roles` directive to set VLANs on the 
+Below is an example of how to use the `roles` directive to set LLDP on the
 Cisco IOS-XR device.
 
 ```
