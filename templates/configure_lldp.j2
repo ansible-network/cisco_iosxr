@@ -16,10 +16,10 @@ timer {{ item.timer | default(omit) }}
 tlv-select {{ item.tlv_select | default(omit) }} disable
 
 {% if item.interface is defined %}
-interface {{ item.interface | default(omit) }}
+interface {{ item.interface }}
 lldp
-receive {{ item.receive | default(omit) }}
-transmit {{ item.transmit | default(omit) }}
+receive {{ item.receive }}
+transmit {{ item.transmit }}
 {% endif %}
 
 {% endif %}
