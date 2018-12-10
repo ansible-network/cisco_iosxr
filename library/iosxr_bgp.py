@@ -265,7 +265,7 @@ options:
             default: present
             choices:
               - present
-              - absent      
+              - absent    
       state:
         description:
           - Specifies the state of address family
@@ -320,13 +320,13 @@ commands:
   type: list
   sample:
     - router bgp 65000
-    - bgp router-id 1.1.1.1 
-    - neighbor 182.168.10.1 remote-as 500 
+    - bgp router-id 1.1.1.1
+    - neighbor 182.168.10.1 remote-as 500
     - neighbor 182.168.10.1 description PEER_1
     - neighbor 192.168.20.1 remote-as 500
     - neighbor 192.168.20.1 update-source GigabitEthernet0/0/0/0
     - address-family ipv4 unicast
-    - redistribute ospf 400 metric 110 
+    - redistribute ospf 400 metric 110
     - network 192.168.2.0/23
     - network 10.0.0.0/8
     - exit

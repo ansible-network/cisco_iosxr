@@ -31,7 +31,6 @@ from ansible.module_utils.network.iosxr.config.bgp import get_bgp_as
 from ansible.module_utils.network.iosxr.config.bgp.timer import BgpTimer
 
 
-
 class BgpNeighbor(ConfigBase):
 
     argument_spec = {
@@ -71,7 +70,8 @@ class BgpNeighbor(ConfigBase):
                     if meth:
                         command = meth(config)
                         if command:
-                             commands.extend(to_list(' '.join([context, command])))
+                            commands.extend(to_list(' '.join([context,
+                                                              command])))
         return commands
 
     def _set_description(self, config=None):

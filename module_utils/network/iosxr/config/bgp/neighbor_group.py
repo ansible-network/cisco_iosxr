@@ -30,7 +30,6 @@ from ansible.module_utils.network.iosxr.config.bgp import get_bgp_as
 from ansible.module_utils.network.iosxr.config.bgp.neighbor import BgpNeighbor
 
 
-
 class BgpNeighborGroup(BgpNeighbor):
 
     argument_spec = {
