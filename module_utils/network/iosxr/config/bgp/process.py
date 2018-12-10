@@ -85,14 +85,6 @@ class BgpProcess(ConfigBase):
             if config and cmd in config:
                 return '%s disable' % cmd
 
-    def _set_timers(self, config):
-        """generate bgp timer related configuration
-        """
-        timer = BgpTimer(**self.timers)
-        resp = timer.render(config)
-        if resp:
-            return resp
-
     def _set_neighbors(self, config):
         """ generate bgp neighbor configuration
         """

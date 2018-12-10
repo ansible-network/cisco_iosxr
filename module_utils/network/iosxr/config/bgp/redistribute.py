@@ -30,7 +30,7 @@ from ansible.module_utils.network.iosxr.config import ConfigBase
 
 class BgpRedistribute(ConfigBase):
     PROTOCOLS=['ospf', 'eigrp', 'isis', 'static', 'connected', 'lisp', 'mobile', 'rip', 'subscriber']
-    
+
     argument_spec = {
         'protocol': dict(choices=PROTOCOLS, required=True),
         'id': dict(),
