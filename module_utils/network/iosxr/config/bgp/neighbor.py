@@ -43,6 +43,7 @@ class BgpNeighbor(ConfigBase):
         'description': dict(),
         'ebgp_multihop': dict(type='int'),
         'tcp_mss': dict(type='int'),
+        'timers': dict(type='dict', elements='dict', options=BgpTimer.argument_spec),
         'use_neighbor_group': dict(),
         'state': dict(choices=['present', 'absent'], default='present')
     }

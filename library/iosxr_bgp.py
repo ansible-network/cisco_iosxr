@@ -26,12 +26,12 @@ DOCUMENTATION = """
 module: iosxr_bgp
 version_added: "2.8"
 author: "Nilashish Chakraborty (@nilashishc)"
-short_description: Configure global BGP protocol settings on Cisco IOS
+short_description: Configure global BGP protocol settings on Cisco IOS-XR
 description:
   - This module provides configuration management of global BGP parameters
-    on devices running Cisco IOS
+    on devices running Cisco IOS-XR
 notes:
-  - Tested against Cisco IOS Version 15.6(3)M2
+  - Tested against Cisco IOS XR Software Version 6.1.3
 options:
   bgp_as:
     description:
@@ -44,7 +44,7 @@ options:
     default: null
   log_neighbor_changes:
     description:
-      - Enable/Disable logging neighbor up/down and reset reason
+      - Enable/disable logging neighbor up/down and reset reason
     type: bool
   neighbors:
     description:
@@ -64,8 +64,7 @@ options:
           - Source of the routing updates
       password:
         description:
-          - Password(in cleartext) to authenticate BGP peer connection
-          - This option is not idempotent
+          - Password to authenticate BGP peer connection
       enabled:
         description:
           - Administratively shutdown or enable a neighbor
@@ -73,32 +72,43 @@ options:
       description:
         description:
           - Neighbor specific description
+      advertisement_interval:
+        description:
+          - Specifies the minimum interval (in seconds) between sending BGP routing updates
+          - The range is from 0 to 600
+        type: int
+      tcp_mss:
+        description:
+          - Specifies the TCP initial maximum segment size to use
+          - The range is from 68 to 10000
+        type: int
       ebgp_multihop:
         description:
           - Specifies the maximum hop count for EBGP neighbors not on directly connected networks
+          - The range is from 0 to 255.
         type: int
       use_neighbor_group:
         description:
-          - Name of neighbor-group of which the neighbor is a member
+          - Name of the neighbor group that the neighbor is a member of
       timers:
         description:
           - Specifies BGP neighbor timer related configurations
         suboptions:
           keepalive:
             description:
-              - Frequency (in seconds) with which the Cisco IOS-XR software sends keepalive messages to its peer.
+              - Frequency with which the Cisco IOS-XR software sends keepalive messages to its peer.
               - The range is from 0 to 65535.
             type: int
             required: True
           holdtime:
             description:
-              - Interval (in seconds) after not receiving a keepalive message that the software declares a peer dead.
+              - Interval after not receiving a keepalive message that the software declares a peer dead.
               - The range is from 3 to 65535.
             type: int
             required: True
           min_neighbor_holdtime:
             description:
-              - Interval (in seconds) specifying the minimum acceptable hold-time from a BGP neighbor.
+              - Interval specifying the minimum acceptable hold-time from a BGP neighbor.
               - The minimum acceptable hold-time must be less than, or equal to, the interval specified in the holdtime argument.
               - The range is from 3 to 65535.
             type: int
@@ -109,23 +119,73 @@ options:
         choices:
           - present
           - absent
-  networks:
+  neighbor_groups:
     description:
-      - Specify networks to announce via BGP
+      - Specifies BGP neighbor group related configurations
     suboptions:
-      network:
+      name:
         description:
-          - Network ID to announce via BGP
+          - Specifies the name of the neighbor group
         required: True
-      mask:
+      remote_as:
         description:
-          - Subnet Mask for the Network to announce
-      route_map:
+          - Remote AS to be assigned to neighbors that belong to this neighbor group
+        type: int
+      update_source:
         description:
-          - Route-map to modify the attributes
+          - Source of the routing updates for neighbor that belong to this neighbor group
+      password:
+        description:
+          - Password to authenticate BGP peer connection
+      enabled:
+        description:
+          - Administratively shutdown or enable a neighbor
+        type: bool
+      description:
+        description:
+          - Neighbor specific description
+      ebgp_multihop:
+        description:
+          - Specifies the maximum hop count for EBGP neighbors not on directly connected networks
+          - The range is from 0 to 255.
+      advertisement_interval:
+        description:
+          - Specifies the minimum interval (in seconds) between sending BGP routing updates
+          - The range is from 0 to 600
+        type: int
+      tcp_mss:
+        description:
+          - Specifies the TCP initial maximum segment size to use
+          - The range is from 68 to 10000
+        type: int
+      use_neighbor_group:
+        description:
+          - Specify neighbor group to inherit configurations from
+      timers:
+        description:
+          - Specifies BGP neighbor timer related configurations for neighbors belonging to this neighbor group
+        suboptions:
+          keepalive:
+            description:
+              - Frequency with which the Cisco IOS-XR software sends keepalive messages to its peer.
+              - The range is from 0 to 65535.
+            type: int
+            required: True
+          holdtime:
+            description:
+              - Interval after not receiving a keepalive message that the software declares a peer dead.
+              - The range is from 3 to 65535.
+            type: int
+            required: True
+          min_neighbor_holdtime:
+            description:
+              - Interval specifying the minimum acceptable hold-time from a BGP neighbor.
+              - The minimum acceptable hold-time must be less than, or equal to, the interval specified in the holdtime argument.
+              - The range is from 3 to 65535.
+            type: int
       state:
         description:
-          - Specifies the state of network
+          - Specifies the state of the BGP neighbor group
         default: present
         choices:
           - present
@@ -157,15 +217,24 @@ options:
           protocol:
             description:
               - Specifies the protocol for configuring redistribute information
+            choices:
+              - ospf
+              - eigrp
+              - isis
+              - static
+              - connected
+              - lisp
+              - mobile
+              - rip
+              - subscriber
             required: True
           id:
             description:
               - Identifier for the routing protocol for configuring redistribute information
-              - Not valid for protocol - RIP
+              - Required only when protocol is in ['ospf', 'eigrp', 'isis']
           metric:
             description:
               - Specifies the metric for redistributed routes
-            type: int
           route_map:
             description:
               - Specifies the route map reference
@@ -186,17 +255,17 @@ options:
             required: True
           mask:
             description:
-              - Subnet Mask for the Network to announce
+              - Subnet mask for the network to announce
           route_map:
             description:
-              - Route-map to modify the attributes
+              - Route map to modify the attributes
           state:
             description:
               - Specifies the state of network
             default: present
             choices:
               - present
-              - absent
+              - absent      
       state:
         description:
           - Specifies the state of address family
@@ -212,24 +281,31 @@ options:
       - present
       - absent
       - replace
-extends_documentation_fragment: ios
+extends_documentation_fragment: iosxr
 """
 
 EXAMPLES = """
 - name: configure global bgp as 65000
-  ios_bgp:
+  iosxr_bgp:
     bgp_as: 65000
     router_id: 1.1.1.1
-    log_neighbor_changes: True
     neighbors:
       - neighbor: 182.168.10.1
         remote_as: 500
+        description: PEER_1
       - neighbor: 192.168.20.1
         remote_as: 500
-    networks:
-      - network: 10.0.0.0/8
-      - network: 11.0.0.0/8
-    state: present
+        update_source: GigabitEthernet 0/0/0/0
+    address_families:
+      - name: ipv4
+        cast: unicast
+        networks:
+          - network: 192.168.2.0/23
+          - network: 10.0.0.0/8
+        redistribute:
+          - protocol: ospf
+            id: 400
+            metric: 110
 
 - name: remove bgp as 65000 from config
   ios_bgp:
@@ -243,8 +319,17 @@ commands:
   returned: always
   type: list
   sample:
-    - router bgp 500
-    - neighbor 182.168.10.1 remote-as 500
+    - router bgp 65000
+    - bgp router-id 1.1.1.1 
+    - neighbor 182.168.10.1 remote-as 500 
+    - neighbor 182.168.10.1 description PEER_1
+    - neighbor 192.168.20.1 remote-as 500
+    - neighbor 192.168.20.1 update-source GigabitEthernet0/0/0/0
+    - address-family ipv4 unicast
+    - redistribute ospf 400 metric 110 
+    - network 192.168.2.0/23
+    - network 10.0.0.0/8
+    - exit
 """
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.network.iosxr.iosxr import get_config, load_config

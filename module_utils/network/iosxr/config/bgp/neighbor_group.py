@@ -40,6 +40,7 @@ class BgpNeighborGroup(ConfigBase):
         'update_source': dict(),
         'password': dict(no_log=True),
         'enabled': dict(type='bool'),
+        'advertisement_interval': dict(type='int'),
         'description': dict(),
         'ebgp_multihop': dict(type='int'),
         'tcp_mss': dict(type='int'),
@@ -115,7 +116,7 @@ class BgpNeighborGroup(ConfigBase):
             return cmd
 
     def _set_advertisement_interval(self, config=None):
-        cmd = 'advertisement-interval %s' % self.advertisement_interval
+        cmd = 'advertisement-interval %s' % str(self.advertisement_interval)
         if not config or cmd not in config:
             return cmd
 
