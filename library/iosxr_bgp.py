@@ -265,7 +265,7 @@ options:
             default: present
             choices:
               - present
-              - absent 
+              - absent
       state:
         description:
           - Specifies the state of address family
