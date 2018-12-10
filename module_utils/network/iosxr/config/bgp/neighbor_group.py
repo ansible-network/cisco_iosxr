@@ -26,28 +26,20 @@
 # USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #
 from ansible.module_utils.network.common.utils import to_list
-from ansible.module_utils.network.iosxr.config import ConfigBase
 from ansible.module_utils.network.iosxr.config.bgp import get_bgp_as
-from ansible.module_utils.network.iosxr.config.bgp.timer import BgpTimer
+from ansible.module_utils.network.iosxr.config.bgp.neighbor import BgpNeighbor
 
 
 
-class BgpNeighborGroup(ConfigBase):
+class BgpNeighborGroup(BgpNeighbor):
 
     argument_spec = {
-        'name': dict(required=True),
-        'remote_as': dict(type='int', required=True),
-        'update_source': dict(),
-        'password': dict(no_log=True),
-        'enabled': dict(type='bool'),
-        'advertisement_interval': dict(type='int'),
-        'description': dict(),
-        'ebgp_multihop': dict(type='int'),
-        'tcp_mss': dict(type='int'),
-        'timers': dict(type='dict', elements='dict', options=BgpTimer.argument_spec),
-        'use_neighbor_group': dict(),
-        'state': dict(choices=['present', 'absent'], default='present')
+        'name': dict(required=True)
     }
+
+    argument_spec.update(BgpNeighbor.argument_spec)
+
+    del argument_spec['neighbor']
 
     identifier = ('name', )
 
@@ -83,52 +75,7 @@ class BgpNeighborGroup(ConfigBase):
                 commands.extend([context, 'exit'])
         return commands
 
-    def _set_description(self, config=None):
-        cmd = 'description %s' % self.description
+    def _set_remote_as(self, config=None):
+        cmd = 'remote-as %s' % self.remote_as
         if not config or cmd not in config:
             return cmd
-
-    def _set_enabled(self, config=None):
-        cmd = 'shutdown'
-        if self.enabled is True:
-            cmd = 'no %s' % cmd
-        if not config or cmd not in config:
-            return cmd
-
-    def _set_update_source(self, config=None):
-        cmd = 'update-source %s' % (self.update_source.replace(' ', ''))
-        if not config or cmd not in config:
-            return cmd
-
-    def _set_password(self, config=None):
-        cmd = 'password %s' % self.password
-        if not config or cmd not in config:
-            return cmd
-
-    def _set_ebgp_multihop(self, config=None):
-        cmd = 'ebgp-multihop %s' % self.ebgp_multihop
-        if not config or cmd not in config:
-            return cmd
-
-    def _set_tcp_mss(self, config=None):
-        cmd = 'tcp mss %s' % self.tcp_mss
-        if not config or cmd not in config:
-            return cmd
-
-    def _set_advertisement_interval(self, config=None):
-        cmd = 'advertisement-interval %s' % str(self.advertisement_interval)
-        if not config or cmd not in config:
-            return cmd
-
-    def _set_neighbor_group(self, config=None):
-        cmd = 'use neighbor-group %s' % self.neighbor_group
-        if not config or cmd not in config:
-            return cmd
-
-    def _set_timers(self, config):
-        """generate bgp timer related configuration
-        """
-        timer = BgpTimer(**self.timers)
-        resp = timer.render(config)
-        if resp:
-            return resp
