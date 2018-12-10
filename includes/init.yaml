@@ -17,6 +17,15 @@
     msg: "expected ansible_network to be `network_cli`, got `{{ ansible_connection }}`"
   when: ansible_connection != 'network_cli'
 
+- name: set ansible_provider_functions fact
+  set_fact:
+    ansible_network_provider_functions:
+      - get_facts
+      - configure_user
+      - configure_vlan
+      - configure_system_properties
+      - configure_lldp
+
 - name: read ansible_min_version from meta data
   include_vars:
     file: ../meta/main.yml
