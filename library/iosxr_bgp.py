@@ -265,7 +265,7 @@ options:
             default: present
             choices:
               - present
-              - absent    
+              - absent 
       state:
         description:
           - Specifies the state of address family
@@ -281,7 +281,6 @@ options:
       - present
       - absent
       - replace
-extends_documentation_fragment: iosxr
 """
 
 EXAMPLES = """
