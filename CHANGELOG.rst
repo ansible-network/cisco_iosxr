@@ -2,6 +2,23 @@
 Ansible Network cisco_iosxr
 ===========================
 
+.. _Ansible Network cisco_iosxr_v2.7.1:
+
+v2.7.1
+======
+
+.. _Ansible Network cisco_iosxr_v2.7.1_New Tasks:
+
+New Tasks
+---------
+
+- Add ``configure_vlan`` task.
+
+- Add ``configure_system_properties`` task.
+
+- Add ``configure_lldp`` task.
+
+
 .. _Ansible Network cisco_iosxr_v2.7.0:
 
 v2.7.0
@@ -14,10 +31,12 @@ Major Changes
 
 - Initial release of 2.7.0 ``cisco_iosxr`` Ansible role that is supported with Ansible 2.7.0
 
-.. _Ansible Network cisco_nxos_v2.6.1:
+
+.. _Ansible Network cisco_iosxr_v2.6.1:
 
 v2.6.1
 ======
+
 .. _Ansible Network cisco_iosxr_v2.6.1_New Tasks:
 
 New Tasks
