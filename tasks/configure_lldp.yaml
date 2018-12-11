@@ -1,0 +1,26 @@
+---
+- name: "check for required fact - interface when lldp receive is defined"
+  fail:
+    msg: "missing required fact: Interface"
+  with_items: "{{ lldp }}"
+  when: ( item.interface is not defined and item.receive is defined)
+  loop_control:
+    loop_var: item
+  delegate_to: localhost
+
+- name: "check for required fact - interface when lldp transmit is defined"
+  fail:
+    msg: "missing required fact: Interface"
+  with_items: "{{ lldp }}"
+  when: ( item.interface is not defined and item.transmit is defined)
+  loop_control:
+    loop_var: item
+  delegate_to: localhost
+
+- name: "fetch template for configuring LLDP"
+  set_fact:
+    iosxr_config_text: "{{ lookup('config_template', 'configure_lldp.j2') }}"
+  when: lldp
+
+- include_tasks: config_manager/load.yaml
+  when: lldp
