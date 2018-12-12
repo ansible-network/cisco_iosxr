@@ -28,4 +28,3 @@
   register: system
   export: yes
   extend: cisco_iosxr
-

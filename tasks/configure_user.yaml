@@ -2,7 +2,7 @@
 - name: "check if user(s) to configure is provided"
   fail:
     msg: "no user provided to configure"
-  when:  users is not defined
+  when: users is not defined
   delegate_to: localhost
 
 - name: "check for required fact - name"

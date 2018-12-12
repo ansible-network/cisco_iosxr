@@ -7,5 +7,5 @@
 - name: "iosxr: enable netconf if not already enabled"
   iosxr_netconf:
     netconf_port: "{{ iosxr_netconf_port }}"
-    netconf_vrf:  "{{ iosxr_netconf_vrf }}"
+    netconf_vrf: "{{ iosxr_netconf_vrf }}"
     state: present
