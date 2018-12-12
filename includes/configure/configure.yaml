@@ -6,7 +6,7 @@
   - name: enter configuration mode
     cli:
       command: configure
-  
+
   - name: load configuration lines
     cli:
       command: "{{ line.strip() }}"
@@ -18,7 +18,7 @@
     cli:
       command: show commit changes diff
     register: iosxr_config_diff
-    
+
   - name: display config diff
     debug:
       msg: "{{ iosxr_config_diff.stdout.splitlines() }}"

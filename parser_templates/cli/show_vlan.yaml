@@ -14,11 +14,11 @@
 
 - name: match cli values
   pattern_group:
-  - name: match row
-    pattern_match:
-      regex: '^(?P<interface>\w+\d/\d/\d/\d)\s+(?P<id>\d+)'
-      content: "{{ item }}"
-    register: fact
+    - name: match row
+      pattern_match:
+        regex: '^(?P<interface>\w+\d/\d/\d/\d)\s+(?P<id>\d+)'
+        content: "{{ item }}"
+      register: fact
   loop: "{{ cli_section }}"
   register: cli_values
 
