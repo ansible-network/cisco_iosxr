@@ -1,3 +1,4 @@
+---
 major_changes:
   - Initial release of the ``cisco_iosxr`` Ansible role.
   - This role provides functions to perform automation activities on Cisco IOSXR devices.
