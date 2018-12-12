@@ -8,8 +8,8 @@
 - name: match cli sections
   pattern_match:
     regex: "^Gi(\\w+)"
-    match_all: yes
-    match_greedy: yes
+    match_all: true
+    match_greedy: true
   register: cli_section
 
 - name: match cli values
@@ -30,5 +30,5 @@
       - key: id
         value: "{{ item.fact.id }}"
   loop: "{{ cli_values }}"
-  export: yes
+  export: true
   register: vlan_facts

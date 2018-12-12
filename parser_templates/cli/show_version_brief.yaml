@@ -26,5 +26,5 @@
     hostname: "{{ hostname.matches.0 }}"
     image_file: "{{ image.matches.0 }}"
   register: system
-  export: yes
+  export: true
   extend: cisco_iosxr

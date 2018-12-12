@@ -13,10 +13,6 @@
     iosxr_config_text: "{{ lookup('config_template', iosxr_config_file) | join('\n') }}"
   when: iosxr_config_file != ''
 
-#- name: Include replace task
-#  include_tasks: includes/configure/replace.yaml
-#  when: iosxr_config_replace
-
 - name: Include configure task
   include_tasks: includes/configure/configure.yaml
   when: not ansible_check_mode and not iosxr_config_replace

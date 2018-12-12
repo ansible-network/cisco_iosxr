@@ -1,3 +1,4 @@
+---
 new_tasks:
   - Add ``configure_vlan`` task.
   - Add ``configure_system_properties`` task.
