@@ -1,8 +1,8 @@
 # cisco_iosxr
 
-This Ansible Network role provides a set of platform dependent fuctions that
+This Ansible Network role provides a set of platform dependent functions that
 are designed to work with Cisco IOS-XR network devices.  The functions included
-int his role inlcuding both configuration and fact collection.
+in this role including both configuration and fact collection.
 
 ## Requirements
 
@@ -11,7 +11,7 @@ int his role inlcuding both configuration and fact collection.
 
 ## Functions
 
-This section provides a list of the availabe functions that are including
+This section provides a list of the available functions that are included
 in this role.  Any of the provided functions can be implemented in Ansible
 playbooks to perform automation activities on Cisco iosxr devices.
 
